@@ -1,0 +1,24 @@
+---
+title: 'Assignment 3: Reproducible report'
+author: "Szymon Bujowski, Preetam Sharma"
+date: "3/29/2022"
+output:
+  html_document:
+    toc: true               # table of contents
+    number_sections: true   # headings enumeration
+    toc_float: true         # floating toc
+    theme: united           # looks&feels
+    highlight: tango        # as above
+---
+
+# Treemap 
+
+```{python}
+...
+```
+
+# Correlations
+
+```{r}
+# foo
+```
