@@ -1,0 +1,15 @@
+The Correlations.csv dataset contains absolute values of correlation between the stock prices of pairs of companies identified by stock symbols (tickers)
+
+The data in the Sectors folder present the percentage changes of stock prices and trading volume (the number of shares traded within a given sector. The name of the file (<name>.csv) is the name of the sector.
+
+Columns within a sector files:
+- Symbol: Stock symbol (company ticker)
+- Name: Company name
+- Volume: Current volume [shares]
+- 1dC%: Percentage change of close value as compared to the previous day [%]
+- 1dV%: Percentage change of volume as compared to the previous day [%]
+- Open: Stock opening value [$]
+- High: Daily stock high value [$]
+- Close: Daily stock closing value [$]
+- Sentiment: Social media sentiment about company [between 0 and 1, the higher the more positive]
+

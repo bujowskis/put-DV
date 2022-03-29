@@ -1,0 +1,60 @@
+,Symbol,Name,Volume,Open,High,Close,Sentiment
+0,AAPL,Apple Inc.,86580100,172.89,174.14,172.17,0.31
+1,ADBE,Adobe Inc.,3605200,513.66,520.42,510.7,0.22
+3,AEHR,Aehr Test Systems,4290800,20.09,20.09,16.09,0.26
+5,AI,"C3.ai, Inc.",2299200,29.71,30.97,29.94,0.51
+7,AMAT,"Applied Materials, Inc.",6334000,155.1,157.38,150.81,0.4
+8,AMD,"Advanced Micro Devices, Inc.",58398000,136.28,137.44,132,0.26
+9,ANET,"Arista Networks, Inc.",2326900,133.37,135.02,129.48,0.24
+11,APPS,"Digital Turbine, Inc.",2649300,54.33,56.36,52.41,0.57
+13,ASAN,"Asana, Inc.",3015600,61.75,64.68,61.22,0.25
+16,AVCT,"American Virtual Cloud Technologies, Inc.",10971600,2.09,2.36,2.34,0.53
+22,COIN,"Coinbase Global, Inc.",3305500,233.63,238.48,232.33,0.32
+24,COMP,"Compass, Inc.",8672800,8.29,8.56,8.54,0.21
+27,CRWD,"CrowdStrike Holdings, Inc.",3528500,185,193.27,188.99,0.41
+28,CSCO,"Cisco Systems, Inc.",20129300,60.87,61.5,61.13,0.4
+32,DDD,3D Systems Corporation,2158200,20,20.68,19.83,0.22
+33,DDOG,"Datadog, Inc.",2551800,144,148.59,143.79,0.26
+34,DELL,Dell Technologies Inc.,3512700,58.1,58.47,57.99,0.35
+35,DM,"Desktop Metal, Inc.",5185900,4.59,4.72,4.52,0.31
+37,DOCN,"DigitalOcean Holdings, Inc.",1492200,70.11,72.98,70.73,0.49
+38,DOCU,"DocuSign, Inc.",6219500,140.49,144.73,135.93,0.21
+40,ENPH,"Enphase Energy, Inc.",3561600,152.11,154.95,145.13,0.22
+41,ETWO,"E2open Parent Holdings, Inc.",1898500,10.11,10.39,10.13,0.3
+43,FISV,"Fiserv, Inc.",2687100,108.68,109.98,108.83,0.36
+46,GLW,Corning Incorporated,3811500,38.28,38.75,37.97,0.54
+48,HOOD,"Robinhood Markets, Inc.",23012100,15.62,16.48,15.89,0.23
+49,HPE,Hewlett Packard Enterprise Company,10481300,16.98,17.24,17.13,0.41
+56,IRNT,"IronNet, Inc.",693700,3.64,3.75,3.61,0.76
+65,MQ,"Marqeta, Inc.",5679200,15.05,16.1,15.57,0.33
+68,MSFT,Microsoft Corporation,32674000,314.15,316.5,314.04,0.26
+69,MTTR,"Matterport, Inc.",7104300,16.3,16.83,15.61,0.23
+70,MU,"Micron Technology, Inc.",14847000,96.09,97.19,94.45,0.22
+71,MVIS,"MicroVision, Inc.",4520700,4.43,4.6,4.28,0.36
+72,NET,"Cloudflare, Inc.",6147500,102.87,110.04,107,0.61
+73,NLOK,NortonLifeLock Inc.,3209700,27.06,27.19,26.61,0.4
+74,NOVA,Sunnova Energy International Inc.,1944800,23.85,25.04,23.99,0.36
+76,NVDA,NVIDIA Corporation,40920100,281.41,284.22,272.47,0.33
+78,OLB,"The OLB Group, Inc.",187500,2.26,2.4,2.25,0.46
+79,ON,ON Semiconductor Corporation,6792500,67.5,68.48,64.56,0.49
+80,ORCL,Oracle Corporation,9816900,86.45,88,87.51,0.21
+81,OUST,"Ouster, Inc.",1209800,4.84,4.95,4.58,0.3
+83,PHUN,"Phunware, Inc.",18164100,2.86,2.98,2.66,0.26
+85,PLTR,Palantir Technologies Inc.,37696500,16.7,17.33,16.56,0.45
+86,PSTG,"Pure Storage, Inc.",2926800,30.7,30.94,29.83,0.76
+87,QCOM,QUALCOMM Incorporated,7381100,186.6,188.36,180.41,0.25
+89,RUN,Sunrun Inc.,3794500,31.5,33.49,31.72,0.42
+90,S,"SentinelOne, Inc.",3521200,43.46,45.44,44.33,0.93
+91,SABR,Sabre Corporation,5182100,9.4,9.55,9.3,0.45
+98,SPWR,SunPower Corporation,2508500,19.21,20.03,19.38,0.3
+101,SWCH,"Switch, Inc.",847000,26.63,26.75,26.4,0.51
+103,TTD,"The Trade Desk, Inc.",6372500,78,82.4,78.94,0.46
+105,U,Unity Software Inc.,3147400,120.11,126.39,120.38,0.25
+106,UBER,"Uber Technologies, Inc.",24859000,42,42.65,41.51,0.41
+108,VLDR,"Velodyne Lidar, Inc.",1939300,4.27,4.4,4.23,0.42
+111,VUZI,Vuzix Corporation,2033400,8.24,8.41,7.97,0.71
+113,WDC,Western Digital Corporation,3841400,64.66,66.23,65.83,0.36
+115,XELA,"Exela Technologies, Inc.",8532200,0.71,0.73,0.7,0.6
+116,XLNX,"Xilinx, Inc.",4206900,203.1,203.45,193.07,0.43
+118,ZEN,"Zendesk, Inc.",1220800,97.95,100.22,97.92,0.42
+120,ZS,"Zscaler, Inc.",1695800,258.38,268.36,261.53,0.4
