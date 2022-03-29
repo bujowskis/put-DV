@@ -1,7 +1,6 @@
 ---
 title: 'Assignment 3: Reproducible report'
 author: "Szymon Bujowski, Preetam Sharma"
-date: "3/29/2022"
 output:
   html_document:
     toc: true               # table of contents
@@ -11,7 +10,19 @@ output:
     highlight: tango        # as above
 ---
 
+# Introduction
+
+## Foreword
+
+TODO
+
+# Sketches
+
+TODO
+
 # Treemap 
+
+TODO
 
 ```{python}
 ...
@@ -19,6 +30,66 @@ output:
 
 # Correlations
 
-```{r}
-# foo
+TODO
+
+## The data
+
+TODO - explanation
+
+```{r cor_data, echo=FALSE, message=FALSE, warning=FALSE}
+library(DT)
+prettyTable <- function(table_df, round_columns_func=is.numeric, round_digits=2) {
+    DT::datatable(table_df, style="bootstrap", filter = "top", rownames = FALSE, extensions = "Buttons", options = list(dom = 'Bfrtip', buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))) %>%
+    formatRound(unlist(lapply(table_df, round_columns_func)), round_digits)
+}
+
+cor_data = read.csv("Dataset/Correlations.csv")
+prettyTable(cor_data)
+```
+
+## The visualization
+
+```{r fig.align="center", fig.width=20, fig.height=20, echo=FALSE, results='hide', message=FALSE, warning=FALSE,  fig.keep='all'}
+library(ggplot2)
+library(plotly)
+
+# get all unique tickers
+ut <- data.frame(tickers=union(cor_data$Ticker.1, cor_data$Ticker.2))
+rut <- data.frame(tickers=rev(ut$tickers))  # save a reversed copy for later
+
+# create dataframe of all combinations
+df <- expand.grid(ticker1=rut$tickers, ticker2=ut$tickers)
+
+# read the correlation values
+df$val <- 0 # no correlation value maps to 0 by default
+for (i in 0:(length(ut$tickers) - 1)) {
+  # correlation = 1 between the same stock
+  df$val[length(ut$tickers) + i*(length(ut$tickers) - 1)] = 1
+}
+for (i in 1:nrow(cor_data)) {
+  # read from the dataset
+  df$val[30*(match(cor_data$Ticker.1[i], ut$tickers) - 1) +
+               match(cor_data$Ticker.2[i], rut$tickers)] = cor_data$Correlation.Value[i]
+  # it's bidirectional
+  df$val[30*(match(cor_data$Ticker.2[i], ut$tickers) - 1) +
+               match(cor_data$Ticker.1[i], rut$tickers)] = cor_data$Correlation.Value[i]
+}
+
+# Heatmap 
+ggplot(df, aes(ticker1, ticker2, fill=val)) + 
+  geom_tile() +
+  geom_text(aes(label=round(val, 2)),
+            size=6
+            ) +
+  scale_x_discrete(guide=guide_axis(n.dodge=2)) +
+  theme(axis.title.x=element_blank(),  # remove x axis title
+        axis.title.y=element_blank(),  # remove y axis title
+        text=element_text(size=20),
+        axis.text=element_text(size=20),
+        ) +
+  scale_fill_gradient2(low="white", high="blue",
+                       limits=c(c(0, 1))
+                       ) +
+  ggtitle("Stocks correlation matrix")
+
 ```
