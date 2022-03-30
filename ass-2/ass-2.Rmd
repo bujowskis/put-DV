@@ -3,22 +3,25 @@ title: 'Assignment 2: Grammar of Graphics'
 author: "Szymon Bujowski, Preetam Sharma"
 output:
   html_document:
-    toc: true               # table of contents
-    number_sections: true   # headings enumeration
-    toc_float: true         # floating toc
-    theme: united           # looks&feels
-    highlight: tango        # as above
+    toc: yes
+    number_sections: yes
+    toc_float: yes
+    theme: united
+    highlight: tango
+  pdf_document:
+    toc: yes
+always_allow_html: true
 ---
 
 # Foreword
 
 The following document is an assignment for Poznan University of Technology's Data Visualization course. The course is conducted by Dariusz Brzeziński during the 4th semester of Artificial Intelligence Bachelor degree.
 
-The assignment is an implementation of the grammar of graphics, intended to create rich visualizations from the data we were provided with. The data consists of two datasets, for both of which we've chosen the upcoming visualizations. As it is stated in the assignment description:
+The assignment is an implementation of the grammar of graphics, intended to create rich visualizations from the data we were provided with. The data consists of two data sets, for both of which we've chosen the upcoming visualizations. As it is stated in the assignment description:
 
 * The data in the Sectors folder present the percentage changes of stock prices and trading volume in selected sectors
-    + Some of the datasets also contain information about the media sentiment about the companies
-* The Correlations.csv dataset contains correlations between the stock prices of pairs of companies identified by stock symbols (tickers)
+    + Some of the data sets also contain information about the media sentiment about the companies
+* The Correlations.csv data set contains correlations between the stock prices of pairs of companies identified by stock symbols (tickers)
 
 For both the following visualizations, we will provide brief descriptions and reasoning behind them.
 
@@ -26,7 +29,9 @@ For both the following visualizations, we will provide brief descriptions and re
 
 We have to credit the lecturer, **Dariusz Brzeziński**, for the interactive tables we have used. They were built using the `DT` package.
 
-The tables should work as intended in html format of the document, however interactivity will be lost in pdf format.
+The interactive tables should work as intended in html format of the document, however they will not be visible in pdf format. For that reason, a standard head of the data frames are displayed.
+
+You can access the project's repository on [GitHub - https://github.com/bujowskis/put-DV/tree/main/ass-2](https://github.com/bujowskis/put-DV/tree/main/ass-2)
 
 ```{r db_table, echo=FALSE, message=FALSE, warning=FALSE}
 library(DT)
@@ -38,9 +43,31 @@ prettyTable <- function(table_df, round_columns_func=is.numeric, round_digits=2)
 }
 ```
 
-# Treemap 
+# Stocks by sectors
+
+## The data
+
+*For simplicity reasons, we are going to show two out of 8 data sets. One of them will be a representative of the sets with sentiments included, and the other one with sentiments missing.*
+
+### Sentiment included
+
+```{r sentiment_repr, echo=FALSE}
+head(read.csv("Dataset/Sectors/healthcare.csv"))
+prettyTable(read.csv("Dataset/Sectors/healthcare.csv"))
+```
+
+### Sentiment missing
+
+```{r nosentiment_repr, echo=FALSE}
+head(read.csv("Dataset/Sectors/consumercycle.csv"))
+prettyTable(read.csv("Dataset/Sectors/consumercycle.csv"))
+```
+
+## Sketch
 
 TODO
+
+## The visualization
 
 ```{python}
 ...
@@ -50,8 +77,9 @@ TODO
 
 ## The data
 
-```{r cor_data, echo=FALSE, message=FALSE, warning=FALSE}
+```{r cor_data, echo=FALSE, warning=FALSE}
 cor_data = read.csv("Dataset/Correlations.csv")
+head(read.csv("Dataset/Correlations.csv"))
 prettyTable(cor_data)
 ```
 
