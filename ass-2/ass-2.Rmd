@@ -1,5 +1,5 @@
 ---
-title: 'Assignment 3: Reproducible report'
+title: 'Assignment 2: Grammar of Graphics'
 author: "Szymon Bujowski, Preetam Sharma"
 output:
   html_document:
@@ -10,15 +10,33 @@ output:
     highlight: tango        # as above
 ---
 
-# Introduction
+# Foreword
 
-## Foreword
+The following document is an assignment for Poznan University of Technology's Data Visualization course. The course is conducted by Dariusz Brzeziński during the 4th semester of Artificial Intelligence Bachelor degree.
 
-TODO
+The assignment is an implementation of the grammar of graphics, intended to create rich visualizations from the data we were provided with. The data consists of two datasets, for both of which we've chosen the upcoming visualizations. As it is stated in the assignment description:
 
-# Sketches
+* The data in the Sectors folder present the percentage changes of stock prices and trading volume in selected sectors
+    + Some of the datasets also contain information about the media sentiment about the companies
+* The Correlations.csv dataset contains correlations between the stock prices of pairs of companies identified by stock symbols (tickers)
 
-TODO
+For both the following visualizations, we will provide brief descriptions and reasoning behind them.
+
+## Credits
+
+We have to credit the lecturer, **Dariusz Brzeziński**, for the interactive tables we have used. They were built using the `DT` package.
+
+The tables should work as intended in html format of the document, however interactivity will be lost in pdf format.
+
+```{r db_table, echo=FALSE, message=FALSE, warning=FALSE}
+library(DT)
+
+# credit: Dariusz Brzeziński
+prettyTable <- function(table_df, round_columns_func=is.numeric, round_digits=2) {
+    DT::datatable(table_df, style="bootstrap", filter = "top", rownames = FALSE, extensions = "Buttons", options = list(dom = 'Bfrtip', buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))) %>%
+    formatRound(unlist(lapply(table_df, round_columns_func)), round_digits)
+}
+```
 
 # Treemap 
 
@@ -30,22 +48,16 @@ TODO
 
 # Correlations
 
-TODO
-
 ## The data
 
-TODO - explanation
-
 ```{r cor_data, echo=FALSE, message=FALSE, warning=FALSE}
-library(DT)
-prettyTable <- function(table_df, round_columns_func=is.numeric, round_digits=2) {
-    DT::datatable(table_df, style="bootstrap", filter = "top", rownames = FALSE, extensions = "Buttons", options = list(dom = 'Bfrtip', buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))) %>%
-    formatRound(unlist(lapply(table_df, round_columns_func)), round_digits)
-}
-
 cor_data = read.csv("Dataset/Correlations.csv")
 prettyTable(cor_data)
 ```
+
+## Sketch
+
+TODO
 
 ## The visualization
 
