@@ -57,11 +57,15 @@ prettyTable(cor_data)
 
 ## Sketch
 
-TODO
+Static visualization choice for the correlations was pretty obvious from the beginning - a heat map correlation matrix. For that reason, there was really no sketch here.
+
+Regarding handling situations in which there is some correlation value missing, it sufficed to use `NA` value, which would result in a missing tile in the visualization.
+
+However, there was no such situations in this case, and thus this feature cannot be seen.
 
 ## The visualization
 
-```{r fig.align="center", fig.width=20, fig.height=20, echo=FALSE, results='hide', message=FALSE, warning=FALSE,  fig.keep='all'}
+```{r fig.align="center", fig.width=20, fig.height=20, echo=TRUE, results='hide', message=FALSE, warning=FALSE,  fig.keep='all'}
 library(ggplot2)
 library(plotly)
 
@@ -122,5 +126,3 @@ p = ggplot(df, aes(ticker1, ticker2, fill=val)) +
   ggtitle("Stocks correlation matrix")
 p
 ```
-
-The missing correlation values are marked `NA` and will be colored white. However, in this example there's no correlations missing and the feature cannot be seen.
