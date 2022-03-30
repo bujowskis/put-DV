@@ -1,15 +1,15 @@
 ---
 title: 'Assignment 2: Grammar of Graphics'
-author: "Szymon Bujowski, Preetam Sharma"
+author: "Szymon Bujowski - 148050, Preetam Sharma - 150504"
 output:
+  pdf_document:
+    toc: yes
   html_document:
     toc: yes
     number_sections: yes
     toc_float: yes
     theme: united
     highlight: tango
-  pdf_document:
-    toc: yes
 always_allow_html: true
 ---
 
@@ -69,7 +69,7 @@ TODO
 
 ## The visualization
 
-```{python}
+```{python sectors_vis}
 ...
 ```
 
