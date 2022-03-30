@@ -68,10 +68,10 @@ for (i in 0:(length(ut$tickers) - 1)) {
 }
 for (i in 1:nrow(cor_data)) {
   # read from the dataset
-  df$val[30*(match(cor_data$Ticker.1[i], ut$tickers) - 1) +
+  df$val[length(ut$tickers)*(match(cor_data$Ticker.1[i], ut$tickers) - 1) +
                match(cor_data$Ticker.2[i], rut$tickers)] = cor_data$Correlation.Value[i]
   # it's bidirectional
-  df$val[30*(match(cor_data$Ticker.2[i], ut$tickers) - 1) +
+  df$val[length(ut$tickers)*(match(cor_data$Ticker.2[i], ut$tickers) - 1) +
                match(cor_data$Ticker.1[i], rut$tickers)] = cor_data$Correlation.Value[i]
 }
 
