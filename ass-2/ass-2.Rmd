@@ -2,14 +2,14 @@
 title: 'Assignment 2: Grammar of Graphics'
 author: "Szymon Bujowski - 148050, Preetam Sharma - 150504"
 output:
-  pdf_document:
-    toc: yes
   html_document:
     toc: yes
     number_sections: yes
     toc_float: yes
     theme: united
     highlight: tango
+  pdf_document:
+    toc: yes
 always_allow_html: true
 ---
 
@@ -69,9 +69,24 @@ TODO
 
 ## The visualization
 
-```{python sectors_vis}
-...
+```{r sectors_vis}
+# So the idea here is to show the change in Closing price of all the stocks of particular sector in one plot
+# for that we decided to use Treemap and color of treemap shows the chnage in close price
+
+library(treemap)
+# Here we are going to show one from including Sentiment and without sentiment
+energy = read.csv("Dataset/Sectors/energy.csv")
+IT = read.csv("Dataset/Sectors/it.csv")
+treemap(energy,index=c("Symbol"),vSize = "Volume", vColor = "X1dC.",type="value",border.col = "black",
+        border.lwds = 1,title = "Energy Sector",title.legend = "Change in Close price in %")
+treemap(IT,index=c("Symbol"),vSize = "Volume", vColor = "Sentiment",type="value",border.col = "black",
+        border.lwds = 1,title = "IT Sector",title.legend = "Sentiment Score")
+
+
+
 ```
+
+
 
 # Correlations
 
