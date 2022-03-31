@@ -2,14 +2,14 @@
 title: 'Assignment 2: Grammar of Graphics'
 author: "Szymon Bujowski - 148050, Preetam Sharma - 150504"
 output:
+  pdf_document:
+    toc: yes
   html_document:
     toc: yes
     number_sections: yes
     toc_float: yes
     theme: united
     highlight: tango
-  pdf_document:
-    toc: yes
 always_allow_html: true
 ---
 
@@ -25,13 +25,13 @@ The assignment is an implementation of the grammar of graphics, intended to crea
 
 For both the following visualizations, we will provide brief descriptions and reasoning behind them.
 
+On top of that, we add an anticlimactic digression regarding one of the ideas for Sectors data visualization.
+
 ## Credits
 
 We have to credit the lecturer, **Dariusz Brzeziński**, for the interactive tables we have used. They were built using the `DT` package.
 
 The interactive tables should work as intended in html format of the document, however they will not be visible in pdf format. For that reason, a standard head of the data frames are displayed.
-
-You can access the project's repository on [GitHub - https://github.com/bujowskis/put-DV/tree/main/ass-2](https://github.com/bujowskis/put-DV/tree/main/ass-2)
 
 ```{r db_table, echo=FALSE, message=FALSE, warning=FALSE}
 library(DT)
@@ -43,50 +43,60 @@ prettyTable <- function(table_df, round_columns_func=is.numeric, round_digits=2)
 }
 ```
 
+**TODO** insert screenshot of interactive table
+
+## Resources
+
+You can access the project's repository on [GitHub - https://github.com/bujowskis/put-DV/tree/main/ass-2](https://github.com/bujowskis/put-DV/tree/main/ass-2)
+
 # Stocks by sectors
 
 ## The data
 
-*For simplicity reasons, we are going to show two out of 8 data sets. One of them will be a representative of the sets with sentiments included, and the other one with sentiments missing.*
+*For simplicity reasons (and keeping this document relatively short), we are going to show two out of 8 data sets. One of them will be a representative of the sets with sentiments included, and the other one with sentiments missing.*
 
 ### Sentiment included
 
 ```{r sentiment_repr, echo=FALSE}
-head(read.csv("Dataset/Sectors/healthcare.csv"))
-prettyTable(read.csv("Dataset/Sectors/healthcare.csv"))
+head(read.csv("Dataset/Sectors/IT.csv"))
+prettyTable(read.csv("Dataset/Sectors/IT.csv"))
 ```
 
 ### Sentiment missing
 
 ```{r nosentiment_repr, echo=FALSE}
-head(read.csv("Dataset/Sectors/consumercycle.csv"))
-prettyTable(read.csv("Dataset/Sectors/consumercycle.csv"))
+head(read.csv("Dataset/Sectors/energy.csv"))
+prettyTable(read.csv("Dataset/Sectors/energy.csv"))
 ```
 
 ## Sketch
 
-TODO
+The underlying idea is to show the change in closing price of all the stocks of a particular sector on a single plot. We decided to use a **tree map**, alongside an **interactive table**.
+
+The tree map was chosen due to its effectiveness in capturing the most relevant and interesting stocks. It is very easy to spot some of the good choices right away. There are two different types of tree maps we have chosen. For both of them, **Size** of the tiles shows the **volume**. The difference lies in the **color** - it shows the **sentiment score** if sentiment is not missing, and **change in close price** otherwise.
+
+The biggest drawback of the tree map is the clutter in case of the stocks with relatively low volume. For that reason, the interactive table is used alongside it. It both makes it possible to look up data of the stock with big volume of our interest, as well as sorting the stocks by volume (or any other attribute) to get a better insight into what the tree map does not capture very well.
 
 ## The visualization
 
-```{r sectors_vis}
-# So the idea here is to show the change in Closing price of all the stocks of particular sector in one plot
-# for that we decided to use Treemap and color of treemap shows the chnage in close price
+*NOTE - the interactive table will not show in the pdf. Please use the html version instead.*
 
+```{r sectors_vis, warning=FALSE}
 library(treemap)
-# Here we are going to show one from including Sentiment and without sentiment
+
+# no sentiment
 energy = read.csv("Dataset/Sectors/energy.csv")
-IT = read.csv("Dataset/Sectors/it.csv")
 treemap(energy,index=c("Symbol"),vSize = "Volume", vColor = "X1dC.",type="value",border.col = "black",
         border.lwds = 1,title = "Energy Sector",title.legend = "Change in Close price in %")
+prettyTable(energy)
+
+# sentiment
+# TODO - make sentiment score label 0-1
+IT = read.csv("Dataset/Sectors/it.csv")
 treemap(IT,index=c("Symbol"),vSize = "Volume", vColor = "Sentiment",type="value",border.col = "black",
         border.lwds = 1,title = "IT Sector",title.legend = "Sentiment Score")
-
-
-
+prettyTable(IT)
 ```
-
-
 
 # Correlations
 
@@ -169,3 +179,7 @@ p = ggplot(df, aes(ticker1, ticker2, fill=val)) +
   ggtitle("Stocks correlation matrix")
 p
 ```
+
+# Digression - reinventing the candle stick chart
+
+TODO
