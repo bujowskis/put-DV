@@ -25,7 +25,7 @@ The assignment is an implementation of the grammar of graphics, intended to crea
 
 For both the following visualizations, we will provide brief descriptions and reasoning behind them.
 
-On top of that, we add an anticlimactic digression regarding one of the ideas for Sectors data visualization.
+On top of that, we add an anticlimactic digression regarding one of the ideas for Sectors data visualization. It includes the sketches that may make up for their lack in case of the main visualizations.
 
 ## Credits
 
@@ -62,6 +62,8 @@ head(read.csv("Dataset/Sectors/IT.csv"))
 prettyTable(read.csv("Dataset/Sectors/IT.csv"))
 ```
 
+---
+
 ### Sentiment missing
 
 ```{r nosentiment_repr, echo=FALSE}
@@ -81,7 +83,7 @@ The biggest drawback of the tree map is the clutter in case of the stocks with r
 
 *NOTE - the interactive table will not show in the pdf. Please use the html version instead.*
 
-```{r sectors_vis, warning=FALSE}
+```{r sectors_nosent, warning=FALSE}
 library(treemap)
 
 # no sentiment
@@ -89,7 +91,11 @@ energy = read.csv("Dataset/Sectors/energy.csv")
 treemap(energy,index=c("Symbol"),vSize = "Volume", vColor = "X1dC.",type="value",border.col = "black",
         border.lwds = 1,title = "Energy Sector",title.legend = "Change in Close price in %")
 prettyTable(energy)
+```
 
+---
+
+```{r sectors_sent}
 # sentiment
 # TODO - make sentiment score label 0-1
 IT = read.csv("Dataset/Sectors/it.csv")
@@ -180,6 +186,28 @@ p = ggplot(df, aes(ticker1, ticker2, fill=val)) +
 p
 ```
 
-# Digression - reinventing the candle stick chart
+# Digression
 
-TODO
+**"reinventing" the candle stick chart, by Szymon Bujowski**
+
+---
+
+In the end, I would also like to mention a rather anticlimactic development of a visualization I considered of adding for the Sectors data. You need to know I have never really dealt with trading and did not get to understand the candle stick plot before developing the following. Let me run you through it.
+
+After seeing the tree map, even though we added an interactive table alongside it, I tried to think of a nice visualization for at least some of the data that did not get a "proper" graphical visualization. The initial idea was to represent the `Open`, `High`, and `Close` values of the chosen stocks, all on a single bar plot. It would roughly look like the following:
+
+**TODO** - insert image of bar plot sketch
+
+Right away I spotted some flaws I did not like about it. It was not relative (and thus it was prone to axis scale issue in case of comparing stocks of different prices magnitude), and using whole bars seemed unnecessary to represent what were essentially just points. On top of that, the trend could not be spotted as easily as it could be.
+
+Some further thinking led me to using relative values (%) and representing them as simple points. A properly colored trend line would connect the `Open` and `Close` values and would include a hover tooltip showing the relative value of change. Besides that, it would be good to include the `Low` value. The line between it and the `High` would indicate the relative difference between those two. The chart could be populated with multiple stocks, which would now be easily comparable. The following sketch depicts the idea:
+
+**TODO** - insert image of "reinvented" candle stick plot
+
+Quite satisfied with the result, I asked my colleague if the visualization does the job and is worth implementing for the assignment. Being an experienced trader, he simply replied with this picture:
+
+**TODO** - insert image of candle stick interpretation
+
+Which ultimately ended the development process. My work did not go to waste though and expanded my knowledge instead. Besides, it is quite satisfying coming up with something so widely used.
+
+---
