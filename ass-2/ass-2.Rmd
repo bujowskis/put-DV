@@ -33,7 +33,7 @@ We have to credit the lecturer, **Dariusz Brzeziński**, for the interactive tab
 
 The interactive tables should work as intended in html format of the document, however they will not be visible in pdf format. For that reason, a standard head of the data frames are displayed.
 
-```{r db_table, echo=FALSE, message=FALSE, warning=FALSE}
+```{r db_table, message=FALSE, warning=FALSE}
 library(DT)
 
 # credit: Dariusz Brzeziński
@@ -43,11 +43,15 @@ prettyTable <- function(table_df, round_columns_func=is.numeric, round_digits=2)
 }
 ```
 
-**TODO** insert screenshot of interactive table
+![prettyTable example screenshot](Images/prettyTable-ex.png)
 
 ## Resources
 
+For the above reason, and also the fact exporting .Rmd to pdf may not preserve the correct images placement, we highly recommend checking out the html version.
+
 You can access the project's repository on [GitHub - https://github.com/bujowskis/put-DV/tree/main/ass-2](https://github.com/bujowskis/put-DV/tree/main/ass-2)
+
+---
 
 # Stocks by sectors
 
@@ -73,11 +77,17 @@ prettyTable(read.csv("Dataset/Sectors/energy.csv"))
 
 ## Sketch
 
+Before diving in, we would like to emphasize we tried to prepare the visualization with the goal of possibly being a tool that could be helpful during the trading. For that reason, the chosen interpretation represents rather the most relevant data, which points the receiving person to the most interesting stocks that can be looked up in the table.
+
 The underlying idea is to show the change in closing price of all the stocks of a particular sector on a single plot. We decided to use a **tree map**, alongside an **interactive table**.
 
 The tree map was chosen due to its effectiveness in capturing the most relevant and interesting stocks. It is very easy to spot some of the good choices right away. There are two different types of tree maps we have chosen. For both of them, **Size** of the tiles shows the **volume**. The difference lies in the **color** - it shows the **sentiment score** if sentiment is not missing, and **change in close price** otherwise.
 
 The biggest drawback of the tree map is the clutter in case of the stocks with relatively low volume. For that reason, the interactive table is used alongside it. It both makes it possible to look up data of the stock with big volume of our interest, as well as sorting the stocks by volume (or any other attribute) to get a better insight into what the tree map does not capture very well.
+
+The sketch looked as follows:
+
+![sectors tree map sketch](Images/sec-tree.png)
 
 ## The visualization
 
@@ -97,12 +107,14 @@ prettyTable(energy)
 
 ```{r sectors_sent}
 # sentiment
-# TODO - make sentiment score label 0-1
+# TODO - make sentiment score label 0-1 (?)
 IT = read.csv("Dataset/Sectors/it.csv")
 treemap(IT,index=c("Symbol"),vSize = "Volume", vColor = "Sentiment",type="value",border.col = "black",
         border.lwds = 1,title = "IT Sector",title.legend = "Sentiment Score")
 prettyTable(IT)
 ```
+
+---
 
 # Correlations
 
@@ -186,6 +198,8 @@ p = ggplot(df, aes(ticker1, ticker2, fill=val)) +
 p
 ```
 
+---
+
 # Digression
 
 **"reinventing" the candle stick chart, by Szymon Bujowski**
@@ -196,18 +210,18 @@ In the end, I would also like to mention a rather anticlimactic development of a
 
 After seeing the tree map, even though we added an interactive table alongside it, I tried to think of a nice visualization for at least some of the data that did not get a "proper" graphical visualization. The initial idea was to represent the `Open`, `High`, and `Close` values of the chosen stocks, all on a single bar plot. It would roughly look like the following:
 
-**TODO** - insert image of bar plot sketch
+![Open, High, Close data bar plot sketch](Images/ohc-bar.png)
 
 Right away I spotted some flaws I did not like about it. It was not relative (and thus it was prone to axis scale issue in case of comparing stocks of different prices magnitude), and using whole bars seemed unnecessary to represent what were essentially just points. On top of that, the trend could not be spotted as easily as it could be.
 
 Some further thinking led me to using relative values (%) and representing them as simple points. A properly colored trend line would connect the `Open` and `Close` values and would include a hover tooltip showing the relative value of change. Besides that, it would be good to include the `Low` value. The line between it and the `High` would indicate the relative difference between those two. The chart could be populated with multiple stocks, which would now be easily comparable. The following sketch depicts the idea:
 
-**TODO** - insert image of "reinvented" candle stick plot
+![my reinvented candle stick-like plot](Images/my-candle.png)
 
 Quite satisfied with the result, I asked my colleague if the visualization does the job and is worth implementing for the assignment. Being an experienced trader, he simply replied with this picture:
 
-**TODO** - insert image of candle stick interpretation
+![actual candle stick with interpretation](Images/candle.png)
 
-Which ultimately ended the development process. My work did not go to waste though and expanded my knowledge instead. Besides, it is quite satisfying coming up with something so widely used.
+Which ultimately ended the development process. My work did not go to waste though and expanded my knowledge instead. Besides, it was quite satisfying coming up with something so widely used.
 
 ---
