@@ -1,0 +1,94 @@
+---
+title: "Assignment 3 - Reproducible Reports"
+author: "Preetam Sharma - 150504, Szymon Bujowski - 148050"
+output:
+  html_document:
+    toc: yes
+    number_sections: yes
+    toc_float: yes
+    theme: united
+    highlight: tango
+  pdf_document:
+    toc: yes
+always_allow_html: true
+---
+
+# Foreword
+
+The following report is an analysis of the top tech stocks from the US market. It concerns deciding the best stock for an investment, based on given risk factor.
+
+TODO
+
+## Setting up
+
+### Tools
+
+For data processing and visualization We are going to use python with the following libraries
+
+```{python}
+import pandas as pd
+import numpy as np
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set_style('whitegrid')
+plt.style.use("fivethirtyeight")
+# %matplotlib inline  # TODO - is needed?
+import warnings
+warnings.filterwarnings("ignore")
+
+from pandas_datareader.data import DataReader
+from datetime import datetime
+```
+
+### Datasets
+
+The datasets are imported from Yahoo reader. We will use `AAPL`, `GOOG`, `MSFT` and `AMZN` stocks for this analysis.
+
+```{python}
+tech_list = ['AAPL', 'GOOG', 'MSFT', 'AMZN']
+
+end = datetime.now()  # TODO - hardcode date, then make comments
+start = datetime(end.year - 1, end.month, end.day)
+
+for stock in tech_list:   
+    globals()[stock] = DataReader(stock, 'yahoo', start, end)
+
+company_list = [AAPL, GOOG, MSFT, AMZN]
+company_name = ["APPLE", "GOOGLE", "MICROSOFT", "AMAZON"]
+
+for company, com_name in zip(company_list, company_name):
+    company["company_name"] = com_name
+    
+df = pd.concat(company_list, axis=0)
+df.tail(10)
+```
+
+Individual stocks descriptions
+
+```{python}
+# TODO - make for each (grid-like, 4 at once?)
+AAPL.describe()
+```
+
+# Analysis
+
+While performing the analysis, we will look into the following:
+
+## Pair trading similarity
+
+TODO - comments/explanations
+
+```{python}
+# todo - make display properly
+plt.figure(figsize=(20, 8))
+plt.subplots_adjust(top=1.25, bottom=1.2)
+
+for i, company in enumerate(company_list, 1):
+    plt.subplot(2, 2, i)
+    company['Adj Close'].plot(color='g')
+    plt.ylabel('Adj Close')
+    plt.xlabel(None)
+    plt.title(f"{tech_list[i - 1]}")
+```
+
