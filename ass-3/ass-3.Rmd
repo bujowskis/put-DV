@@ -92,3 +92,156 @@ for i, company in enumerate(company_list, 1):
     plt.title(f"{tech_list[i - 1]}")
 ```
 
+## Daily stocks exchange
+
+TODO - comments/explanations (volume)
+
+```{python}
+# Plotting the total volume of stock being traded each day
+plt.figure(figsize=(20, 8))
+plt.subplots_adjust(top=1.25, bottom=1.2)
+
+for i, company in enumerate(company_list, 1):
+    plt.subplot(2, 2, i)
+    company['Volume'].plot(color='b')
+    plt.ylabel('Volume')
+    plt.xlabel(None)
+    plt.title(f"{tech_list[i - 1]}")
+```
+
+## Moving Average
+
+TODO - comments/explanations
+
+```{python}
+ma_day = [10, 20, 50]
+
+for ma in ma_day:
+    for company in company_list:
+        column_name = f"MA for {ma} days"
+        company[column_name] = company['Adj Close'].rolling(ma).mean()
+
+df.groupby("company_name").hist(figsize=(20, 10));  # TODO - make display (at all!)
+```
+
+```{python}
+fig, axes = plt.subplots(nrows=2, ncols=2)
+fig.set_figheight(8)
+fig.set_figwidth(20)
+
+AAPL[['Adj Close', 'MA for 10 days', 'MA for 20 days', 'MA for 50 days']].plot(ax=axes[0,0])
+axes[0,0].set_title('APPLE')
+
+GOOG[['Adj Close', 'MA for 10 days', 'MA for 20 days', 'MA for 50 days']].plot(ax=axes[0,1])
+axes[0,1].set_title('GOOGLE')
+
+MSFT[['Adj Close', 'MA for 10 days', 'MA for 20 days', 'MA for 50 days']].plot(ax=axes[1,0])
+axes[1,0].set_title('MICROSOFT')
+
+AMZN[['Adj Close', 'MA for 10 days', 'MA for 20 days', 'MA for 50 days']].plot(ax=axes[1,1])
+axes[1,1].set_title('AMAZON')
+
+fig.tight_layout()
+```
+
+## Daily average return
+
+TODO - comments/explanations
+
+```{python}
+# Finding the percent change for each day
+for company in company_list:
+    company['Daily Return'] = company['Adj Close'].pct_change()
+
+# Plotting the daily return percentage
+fig, axes = plt.subplots(nrows=2, ncols=2)
+fig.set_figheight(8)
+fig.set_figwidth(20)
+
+AAPL['Daily Return'].plot(ax=axes[0,0], legend=True,  marker='o',color='b')
+axes[0,0].set_title('APPLE')
+
+GOOG['Daily Return'].plot(ax=axes[0,1], legend=True,  marker='o',color='g')
+axes[0,1].set_title('GOOGLE')
+
+MSFT['Daily Return'].plot(ax=axes[1,0], legend=True, marker='o',color='r')
+axes[1,0].set_title('MICROSOFT')
+
+AMZN['Daily Return'].plot(ax=axes[1,1], legend=True,  marker='o',color='y')
+axes[1,1].set_title('AMAZON')
+
+fig.tight_layout()
+```
+
+```{python}
+plt.figure(figsize=(20, 12))
+
+for i, company in enumerate(company_list, 1):
+    plt.subplot(2, 2, i)
+    sns.histplot(company['Daily Return'].dropna(), bins=100, color='purple')
+    plt.ylabel('Daily Return')
+    plt.title(f'{company_name[i - 1]}')
+```
+
+## Correlation
+
+```{python}
+closing_df = DataReader(tech_list, 'yahoo', start, end)['Adj Close']
+closing_df.head() 
+```
+
+```{python}
+tech_rets = closing_df.pct_change()
+tech_rets.head()
+```
+
+### Pairplot
+
+TODO - comments/explanations
+
+```{python}
+sns.pairplot(tech_rets, kind='reg')
+```
+
+### Return on risk factor
+
+TODO - comments/explanations
+
+```{python}
+# Set up our figures
+return_fig = sns.PairGrid(tech_rets.dropna())
+return_fig.map_upper(plt.scatter, color='purple')
+return_fig.map_lower(sns.kdeplot, cmap='cool_d')
+return_fig.map_diag(plt.hist, bins=30)
+```
+
+```{python}
+sns.heatmap(tech_rets.corr(), annot=True, cmap='gist_heat_r')
+```
+
+TODO - comments/explanations
+
+```{python}
+sns.heatmap(closing_df.corr(), annot=True, cmap='inferno')
+```
+
+## Risk
+
+TODO - comments/explanations
+
+```{python}
+rets = tech_rets.dropna()
+
+area = np.pi*20
+
+plt.figure(figsize=(12, 10))
+plt.scatter(rets.mean(), rets.std(), s=area)
+plt.xlabel('Expected return')
+plt.ylabel('Risk')
+
+for label, x, y in zip(rets.columns, rets.mean(), rets.std()):
+    plt.annotate(label, xy=(x, y), xytext=(50, 50), textcoords='offset points', ha='right', va='bottom', 
+                 arrowprops=dict(arrowstyle='-', color='blue', connectionstyle='arc3,rad=-0.3'))
+```
+
+TODO - conclusion
