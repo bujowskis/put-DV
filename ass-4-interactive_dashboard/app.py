@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import pandas_datareader as web
@@ -8,10 +7,9 @@ import yfinance
 from datetime import date, timedelta
 import plotly.express as px
 import plotly.io as pio
-@st.cache 
 
 
-
+@st.cache
 def get_data_today(tickers):
     data = pd.DataFrame()
     for tic in tickers:
@@ -23,6 +21,7 @@ def get_data_today(tickers):
             print("The market is closed today")
     data = data.fillna(method='ffill')
     return data
+
 
 def price_ret_summary(tickers):
     data = get_data_today(tickers)
@@ -44,7 +43,7 @@ def price_ret_summary(tickers):
 
 select_page = st.sidebar.selectbox("Select a page:", options=("Dashboard", "Charts"))
 
-####### Dashboard
+# Dashboard
 if select_page == "Dashboard":
     header = st.container()
     box1 = st.container()
@@ -93,7 +92,6 @@ if select_page == "Dashboard":
         col5.metric("Palladium", f"{price3.loc['Palladium', '1d']:.2f}", f"{retsumm3.loc['Palladium', '1m']:.2f}%")
         col6.metric("Wheat", f"{price3.loc['Wheat', '1d']:.2f}", f"{retsumm3.loc['Wheat', '1m']:.2f}%")
 
-        
     with box2:
         st.subheader("Equity market indexes")
         st.dataframe(price1)
@@ -105,8 +103,11 @@ if select_page == "Dashboard":
         st.dataframe(price3)
         st.dataframe(retsumm3.style.background_gradient(axis=1))
 
+    st.sidebar.title("About")
+    st.sidebar.info('This app is a simple interactive financial dashboard, created for Data Visualization course of Artificial Intelligence degree at the Poznań University of Technology.')
 
-####### Charts
+
+# Charts
 if select_page == "Charts":
     header = st.container()
     box1 = st.container()
@@ -114,12 +115,15 @@ if select_page == "Charts":
     with header:
         st.title("Charts")
     #@st.cache(ignore_hash=True)
+
     def load_quotes(asset):
         return yfinance.download(asset)
+
     def load_data():
         components = pd.read_html('https://en.wikipedia.org/wiki/List_of_S'
                     '%26P_500_companies')[0]
         return components.drop('SEC filings', axis=1).set_index('Symbol')
+
     def label(symbol):
         a = components.loc[symbol]
         return symbol + ' - ' + a.Security
@@ -166,7 +170,6 @@ if select_page == "Charts":
     st.subheader('Chart')
     st.line_chart(data2)
 
-
     if st.sidebar.checkbox('View basic stats'):
         st.subheader('Stats')
         st.table(data2.describe())
@@ -175,7 +178,7 @@ if select_page == "Charts":
         st.subheader(f'{asset} historical data')
         st.write(data2)
         st.sidebar.subheader("""Display Additional Information""")
-    #checkbox to display stock actions for the searched ticker
+    # checkbox to display stock actions for the searched ticker
     actions = st.sidebar.checkbox("Stock Actions")
     if actions:
         st.subheader("""Stock **actions** for """ + selected_stock)
@@ -185,7 +188,7 @@ if select_page == "Charts":
         else:
             st.write(display_action)
     
-    #checkbox to display quarterly financials for the searched ticker
+    # checkbox to display quarterly financials for the searched ticker
     financials = st.sidebar.checkbox("Quarterly Financials")
     if financials:
         st.subheader("""**Quarterly financials** for """ + selected_stock)
@@ -195,7 +198,7 @@ if select_page == "Charts":
         else:
             st.write(display_financials)
 
-    #checkbox to display list of institutional shareholders for searched ticker
+    # checkbox to display list of institutional shareholders for searched ticker
     major_shareholders = st.sidebar.checkbox("Institutional Shareholders")
     if major_shareholders:
         st.subheader("""**Institutional investors** for """ + selected_stock)
@@ -205,7 +208,7 @@ if select_page == "Charts":
         else:
             st.write(display_shareholders)
 
-    #checkbox to display quarterly balance sheet for searched ticker
+    # checkbox to display quarterly balance sheet for searched ticker
     balance_sheet = st.sidebar.checkbox("Quarterly Balance Sheet")
     if balance_sheet:
         st.subheader("""**Quarterly balance sheet** for """ + selected_stock)
@@ -215,7 +218,7 @@ if select_page == "Charts":
         else:
             st.write(display_balancesheet)
 
-    #checkbox to display quarterly cashflow for searched ticker
+    # checkbox to display quarterly cashflow for searched ticker
     cashflow = st.sidebar.checkbox("Quarterly Cashflow")
     if cashflow:
         st.subheader("""**Quarterly cashflow** for """ + selected_stock)
@@ -225,7 +228,7 @@ if select_page == "Charts":
         else:
             st.write(display_cashflow)
 
-    #checkbox to display quarterly earnings for searched ticker
+    # checkbox to display quarterly earnings for searched ticker
     earnings = st.sidebar.checkbox("Quarterly Earnings")
     if earnings:
         st.subheader("""**Quarterly earnings** for """ + selected_stock)
@@ -235,7 +238,7 @@ if select_page == "Charts":
         else:
             st.write(display_earnings)
 
-    #checkbox to display list of analysts recommendation for searched ticker
+    # checkbox to display list of analysts recommendation for searched ticker
     analyst_recommendation = st.sidebar.checkbox("Analysts Recommendation")
     if analyst_recommendation:
         st.subheader("""**Analysts recommendation** for """ + selected_stock)
@@ -245,9 +248,5 @@ if select_page == "Charts":
         else:
             st.write(display_analyst_rec)
 
-    
-
     st.sidebar.title("About")
-    st.sidebar.info('This app is a simple example of using Streamlit to create a financial data web app.')
-
-
+    st.sidebar.info('This app is a simple interactive financial dashboard, created for Data Visualization course of Artificial Intelligence degree at the Poznań University of Technology.')
